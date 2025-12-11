@@ -1,9 +1,9 @@
 import express from "express";
 
-const app = express();
+const app: express.Express = express();
 const port = 3001;
 
-app.get("/", (req, res) => {
+app.get("/", (req: express.Request, res: express.Response) => {
     res.send("Express Application");
 })
 
