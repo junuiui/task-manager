@@ -1,0 +1,22 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "Simple Task Manager using Typescript Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junuiui/task-manager.git"
+  },
+  "author": "Junui Hong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/junuiui/task-manager/issues"
+  },
+  "homepage": "https://github.com/junuiui/task-manager#readme",
+  "dependencies": {
+    "express": "^5.0.1"
+  }
+}
