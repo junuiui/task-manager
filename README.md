@@ -16,3 +16,4 @@ Simple Task Manager using Typescript Project
 `npm i typescript@5.7.3`
 `npm i -D @types/express @types/node`
 `npm i -D nodemon@3.1.9 ts-node@10.9.2`
+`npm i inversify@6.2.2 reflect-metadata@0.2.2`
