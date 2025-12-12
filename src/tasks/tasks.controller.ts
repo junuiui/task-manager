@@ -4,18 +4,16 @@ import { UserController } from "../user/user.controller";
 import { Task } from "./task.schema";
 import { ITask } from "./task.interface";
 import { Document } from "mongoose";
+import { Page } from '../examples/page';
 
 @injectable()
 export class TasksController {
     constructor(@inject(UserController) private userController: UserController) { }
 
-    public handleGetTasks() {
-        return [
-            {
-                title: "This is a title",
-                description: "Task description",
-            },
-        ];
+
+    public async handleGetTasks(req: Request, res: Response) {
+        const tasks = await Task.find();
+        return tasks;
     }
 
     public async handlePostTasks(req: Request<{}, {}, ITask>, res: Response) {
