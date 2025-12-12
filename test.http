@@ -1,6 +1,6 @@
 GET http://localhost:3001
 
-POST http://localhost:3001/create-post
+POST http://localhost:3001/tasks
 
 POST http://localhost:3001/create-page
 
