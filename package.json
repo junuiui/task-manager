@@ -20,6 +20,7 @@
     },
     "homepage": "https://github.com/junuiui/task-manager#readme",
     "dependencies": {
+        "dotenv": "^17.2.3",
         "express": "^5.0.1",
         "inversify": "^6.2.2",
         "mongodb": "^6.13.0",
