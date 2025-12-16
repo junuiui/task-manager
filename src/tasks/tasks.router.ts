@@ -40,10 +40,11 @@ export class TasksRouter {
                 // result is empty if NO error
                 if (result.isEmpty()) {
                     const newTask = await this.tasksController.handlePostTasks(req, res);
-                    res.json(newTask);
+                    res.status(StatusCodes.CREATED).json(newTask)
                 }
                 else {
-                    res.json(result.array());
+                    res.status(StatusCodes.BAD_REQUEST).json(result.array());
+
 
                 }
             }
