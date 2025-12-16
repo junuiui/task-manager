@@ -20,4 +20,4 @@ Simple Task Manager using Typescript Project
 `npm i mongodb@6.13.0 mongoose@8.10.1`
 `npm i dotenv`
 `npm i express-validator@7.2.1`
-
+`npm i http-status-codes@2.3.0`
