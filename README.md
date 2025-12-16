@@ -19,4 +19,5 @@ Simple Task Manager using Typescript Project
 `npm i inversify@6.2.2 reflect-metadata@0.2.2`
 `npm i mongodb@6.13.0 mongoose@8.10.1`
 `npm i dotenv`
+`npm i express-validator@7.2.1`
 
