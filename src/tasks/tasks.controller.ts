@@ -4,12 +4,14 @@ import { UserController } from "../user/user.controller";
 import { IPartialTaskWithId, ITask } from "./task.interface";
 import { Document } from "mongoose";
 import { TaskService } from './task.service';
+import { UpdateTaskProvider } from "./providers/updateTask.provider";
 
 @injectable()
 export class TasksController {
     constructor(
         @inject(UserController) private userController: UserController,
-        @inject(TaskService) private taskService: TaskService
+        @inject(TaskService) private taskService: TaskService,
+        @inject(UpdateTaskProvider) private updateTaskProvider: UpdateTaskProvider,
     ) { }
 
 
@@ -28,18 +30,12 @@ export class TasksController {
 
     public async handlePatchTasks(req: Request<{}, {}, IPartialTaskWithId>, res: Response) {
 
-        const task = await this.taskService.findById(req.body._id);
-
-        if (task) {
-            task.title = req.body.title ? req.body.title : task.title;
-            task.description = req.body.description ? req.body.description : task.description;
-            task.status = req.body.status ? req.body.status : task.status;
-            task.priority = req.body.priority ? req.body.priority : task.priority;
-            task.dueDate = req.body.dueDate ? req.body.dueDate : task.dueDate;
-
-            await task.save();
+        try {
+            return await this.updateTaskProvider.updateTask(req.body)
+        }
+        catch (error: any) {
+            throw new Error(error)
         }
 
-        return task;
     }
 }
