@@ -1,23 +1,25 @@
 import { Request, Response } from "express";
 import { injectable, inject } from "inversify";
 import { UserController } from "../user/user.controller";
-import { Task } from "./task.schema";
 import { IPartialTaskWithId, ITask } from "./task.interface";
 import { Document } from "mongoose";
-import { Page } from '../examples/page';
+import { TaskService } from './task.service';
 
 @injectable()
 export class TasksController {
-    constructor(@inject(UserController) private userController: UserController) { }
+    constructor(
+        @inject(UserController) private userController: UserController,
+        @inject(TaskService) private taskService: TaskService
+    ) { }
 
 
     public async handleGetTasks(req: Request, res: Response) {
-        const tasks = await Task.find();
+        const tasks = await this.taskService.findAll();
         return tasks;
     }
 
     public async handlePostTasks(req: Request<{}, {}, ITask>, res: Response) {
-        const task: Document<unknown, any, ITask> = new Task(req.body);
+        const task: Document<unknown, any, ITask> = await this.taskService.createTask(req.body);
 
         await task.save();
 
@@ -25,7 +27,8 @@ export class TasksController {
     }
 
     public async handlePatchTasks(req: Request<{}, {}, IPartialTaskWithId>, res: Response) {
-        const task = await Task.findById(req.body._id); // get it using _id
+
+        const task = await this.taskService.findById(req.body._id);
 
         if (task) {
             task.title = req.body.title ? req.body.title : task.title;
