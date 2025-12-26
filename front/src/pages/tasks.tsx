@@ -1,5 +1,6 @@
 import { TasksCoutner } from '@/components/taskCounter/tasksCounter';
 import type { FC, ReactElement } from 'react';
+import { Task } from '@/components/taskCounter/task/task';
 
 export const Tasks: FC = (): ReactElement => {
     return (
@@ -10,11 +11,13 @@ export const Tasks: FC = (): ReactElement => {
                     <h1 className='text-white font-bol text-2xl mb-8'>
                         Tasks as on: {Date.now().toString()}
                     </h1>
-                    <div className='flex justify-around'>
+                    <div className='flex justify-around mb-12'>
                         <TasksCoutner status='todo' count={2} />
                         <TasksCoutner status='inProgress' count={4} />
                         <TasksCoutner status='completed' count={12} />
                     </div>
+
+                    <Task></Task>
                 </div>
             </section>
 
