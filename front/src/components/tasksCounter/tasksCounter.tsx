@@ -1,7 +1,7 @@
 import type { FC, ReactElement } from 'react'
 import type { ITaskCounter } from "@/types/taskCounter.interface";
 
-export const TasksCoutner: FC<ITaskCounter> = (props): ReactElement => {
+export const TasksCounter: FC<ITaskCounter> = (props): ReactElement => {
 
     const { status, count } = props
 

@@ -1,51 +1,49 @@
-import { TasksCoutner } from '@/components/taskCounter/tasksCounter';
-import type { FC, ReactElement } from 'react';
-import { Task } from '@/components/task/task';
+import type { FC, ReactElement } from "react";
+
+import { Task } from "@/components/task/task";
+import { TasksCounter } from "@/components/tasksCounter/tasksCounter";
+import { TaskSidebar } from "@/components/taskSidebar/taskSidebar";
 
 export const Tasks: FC = (): ReactElement => {
     return (
-        <section className='flex flex-row w-full p-4 gap-8'>
-            {/* sidebar */}
-            <section className='flex basis-2/3 justify-center'>
-                <div className='flex flex-col w-4/5 p-4 '>
-                    <h1 className='text-white font-bol text-2xl mb-8'>
-                        Tasks as on: {Date.now().toString()}
+        <section className="flex flex-row w-full p-4 gap-8 ">
+            <section className="flex basis-2/3 justify-center">
+                <div className="flex flex-col w-4/5 p-4">
+                    <h1 className="text-white font-bold text-2xl mb-8">
+                        Tasks as on: Saturday, 1 Mar 2025
                     </h1>
-                    <div className='flex justify-around mb-12'>
-                        <TasksCoutner status='todo' count={2} />
-                        <TasksCoutner status='inProgress' count={4} />
-                        <TasksCoutner status='completed' count={12} />
+                    <div className="flex justify-around mb-12">
+                        <TasksCounter status="todo" count={3} />
+                        <TasksCounter status="inProgress" count={3} />
+                        <TasksCounter status="completed" count={3} />
                     </div>
 
                     <Task
-                        title="Test"
-                        description='des'
-                        status='inProgress'
-                        priority='normal'
-                        dueDate={new Date()}
+                        title="Task Title"
+                        description="Task Description"
+                        dueDate={new Date("2025-01-01T12:00:00.000Z")}
+                        priority="normal"
+                        status="todo"
                     />
                     <Task
-                        title="Test 2"
-                        description='des 2'
-                        status='completed'
-                        priority='high'
-                        dueDate={new Date()}
+                        title="Task Title"
+                        description="Task Description"
+                        dueDate={new Date("2025-01-01T12:00:00.000Z")}
+                        priority="low"
+                        status="todo"
                     />
                     <Task
-                        title="Test 3"
-                        description='des 2'
-                        status='completed'
-                        priority='low'
-                        dueDate={new Date()}
+                        title="Task Title"
+                        description="Task Description"
+                        dueDate={new Date("2025-01-01T12:00:00.000Z")}
+                        priority="high"
+                        status="completed"
                     />
                 </div>
             </section>
-
-            {/* sidebar */}
-            <section className='flex basis-1/3 bg-pink-50 text-black'>
-                Create Task
+            <section className="flex basis-1/3">
+                <TaskSidebar />
             </section>
         </section>
-
-    )
-}
+    );
+};
