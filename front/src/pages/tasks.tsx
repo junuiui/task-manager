@@ -1,6 +1,6 @@
 import { TasksCoutner } from '@/components/taskCounter/tasksCounter';
 import type { FC, ReactElement } from 'react';
-import { Task } from '@/components/taskCounter/task/task';
+import { Task } from '@/components/task/task';
 
 export const Tasks: FC = (): ReactElement => {
     return (
