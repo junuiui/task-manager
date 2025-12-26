@@ -17,7 +17,27 @@ export const Tasks: FC = (): ReactElement => {
                         <TasksCoutner status='completed' count={12} />
                     </div>
 
-                    <Task></Task>
+                    <Task
+                        title="Test"
+                        description='des'
+                        status='inProgress'
+                        priority='normal'
+                        dueDate={new Date()}
+                    />
+                    <Task
+                        title="Test 2"
+                        description='des 2'
+                        status='completed'
+                        priority='high'
+                        dueDate={new Date()}
+                    />
+                    <Task
+                        title="Test 3"
+                        description='des 2'
+                        status='completed'
+                        priority='low'
+                        dueDate={new Date()}
+                    />
                 </div>
             </section>
 
