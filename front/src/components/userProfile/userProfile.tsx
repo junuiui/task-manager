@@ -6,7 +6,7 @@ export const UserProfile: FC<{ firstName: string }> = (props): ReactElement => {
     const { firstName = "John" } = props;
 
     return (
-        <div className="flex flex-col w-full pt-8 items-center">
+        <div className="flex flex-col w-full pt-4 items-center">
             <Avatar className={`mb-4 ${cn("h-24", "w-24")}`}>
                 <AvatarFallback
                     className={`text-2xl font-semibold ${cn(
