@@ -58,6 +58,7 @@ npm i tw-animate-css
 npm i -D vite@7.2.4 @vitejs/plugin-react
 npm i -D typescript@5.9.3
 npm i -D @types/react @types/react-dom @types/node
+npm i --force zod@3.24.2
 ```
 
 Main dependencies include:
