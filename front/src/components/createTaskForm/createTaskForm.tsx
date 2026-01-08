@@ -30,6 +30,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { useQueryClient, QueryClient } from '@tanstack/react-query';
 
 /* Datepicker imports */
 import { format } from "date-fns";
@@ -52,11 +53,17 @@ export function CreateTaskForm() {
     });
 
     const { mutate, isSuccess, isError, isPending } = useCreateTask();
+    const queryClient = useQueryClient();
 
     /** Function to handle what will happen when the form is submitted */
     function onSubmit(values: z.infer<typeof CreateTaskSchema>) {
         let dueDate = values.dueDate;
-        mutate({ ...values, dueDate })
+        mutate({ ...values, dueDate });
+        queryClient.invalidateQueries({
+            queryKey: ["fetchTasks"],
+            refetchType: "all",
+
+        })
     }
 
     useEffect(() => {

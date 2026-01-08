@@ -1,5 +1,5 @@
 import type { FC, ReactElement } from "react";
-
+import { useState, useEffect } from "react";
 import {
     Card,
     CardContent,
@@ -14,9 +14,14 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import type { ITask } from "@/types/task.interface";
+import { useUpdateTask } from "@/hooks/useUpdateTask.hook";
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const Task: FC<ITask> = (props: ITask): ReactElement => {
     const { title, description, dueDate, status, priority, _id } = props;
+    const [progress, setProgress] = useState(false);
+    const { mutate, isSuccess } = useUpdateTask();
+    const queryClient = useQueryClient();
 
     // Use toLocaleDateString with options for day, month, and year
     let formattedDate = dueDate.toLocaleDateString("en-GB", {
@@ -24,6 +29,35 @@ export const Task: FC<ITask> = (props: ITask): ReactElement => {
         month: "short",
         year: "numeric",
     });
+
+    const handleProgressChange = (value: boolean) => {
+        setProgress(value);
+        if (_id) {
+            mutate({ _id: _id, status: value ? "inProgress" : "todo" });
+        }
+        queryClient.invalidateQueries({
+            queryKey: ["fetchTasks"],
+            refetchType: "all",
+
+        })
+    }
+
+    const handleTaskCompleted = () => {
+        if (_id) {
+            mutate({ _id: _id, status: "completed" });
+        }
+    }
+
+    useEffect(() => {
+        if (status === "inProgress") {
+            setProgress(true);
+        }
+        queryClient.invalidateQueries({
+            queryKey: ["fetchTasks"],
+            refetchType: "all",
+
+        })
+    }, [status])
 
     return (
         <Card className="w-full mb-8">
@@ -56,15 +90,15 @@ export const Task: FC<ITask> = (props: ITask): ReactElement => {
             <CardFooter className="flex justify-between">
                 <div className="flex flex-row items-center">
                     <Switch
-                        checked={status === "inProgress" ? true : false}
-                        onCheckedChange={() => console.log("Switch Changed")}
+                        checked={progress}
+                        onCheckedChange={handleProgressChange}
                         id="in-progress"
                     />
                     <Label className="ml-4" htmlFor="in-progress">
                         In Progress
                     </Label>
                 </div>
-                <Button>Completed</Button>
+                <Button onClick={handleTaskCompleted}>Completed</Button>
             </CardFooter>
         </Card>
     );

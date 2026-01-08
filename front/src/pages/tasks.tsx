@@ -6,6 +6,20 @@ import { TaskSidebar } from "@/components/taskSidebar/taskSidebar";
 import { useFetchTasks } from "@/hooks/useFetchTasks.hook";
 import type { ITask } from "@/types/task.interface";
 
+function todaysDate() {
+    const today = new Date();
+
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+    }
+
+    const formattedDate = today.toLocaleDateString("en-us", options);
+    return formattedDate;
+}
+
 export const Tasks: FC = (): ReactElement => {
 
     const { data, isSuccess, isError } = useFetchTasks({});
@@ -15,7 +29,7 @@ export const Tasks: FC = (): ReactElement => {
             <section className="flex basis-2/3 justify-center">
                 <div className="flex flex-col w-4/5 p-4">
                     <h1 className="text-white font-bold text-2xl mb-8">
-                        Tasks as on: Saturday, 1 Mar 2025
+                        {`Tasks as on: ${todaysDate()}`}
                     </h1>
                     <div className="flex justify-around mb-12">
                         <TasksCounter
