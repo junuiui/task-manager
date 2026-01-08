@@ -3,8 +3,13 @@ import type { FC, ReactElement } from "react";
 import { Task } from "@/components/task/task";
 import { TasksCounter } from "@/components/tasksCounter/tasksCounter";
 import { TaskSidebar } from "@/components/taskSidebar/taskSidebar";
+import { useFetchTasks } from "@/hooks/useFetchTasks.hook";
+import type { ITask } from "@/types/task.interface";
 
 export const Tasks: FC = (): ReactElement => {
+
+    const { data, isSuccess, isError } = useFetchTasks({});
+
     return (
         <section className="flex flex-row w-full p-4 gap-8 ">
             <section className="flex basis-2/3 justify-center">
@@ -18,27 +23,27 @@ export const Tasks: FC = (): ReactElement => {
                         <TasksCounter status="completed" count={3} />
                     </div>
 
-                    <Task
-                        title="Task Title"
-                        description="Task Description"
-                        dueDate={new Date("2025-01-01T12:00:00.000Z")}
-                        priority="normal"
-                        status="todo"
-                    />
-                    <Task
-                        title="Task Title"
-                        description="Task Description"
-                        dueDate={new Date("2025-01-01T12:00:00.000Z")}
-                        priority="low"
-                        status="todo"
-                    />
-                    <Task
-                        title="Task Title"
-                        description="Task Description"
-                        dueDate={new Date("2025-01-01T12:00:00.000Z")}
-                        priority="high"
-                        status="completed"
-                    />
+                    {
+                        data &&
+                        Array.isArray(data.data) &&
+                        data.data.every(
+                            (item): item is ITask =>
+                                "_id" in item &&
+                                "title" in item &&
+                                "status" in item &&
+                                "priority" in item &&
+                                "dueDate" in item
+                        ) && data.data.map((task) => (
+                            <Task
+                                key={task._id}
+                                _id={task._id}
+                                title={task.title}
+                                description={task.description}
+                                dueDate={task.dueDate}
+                                priority={task.priority}
+                                status={task.status}
+                            />
+                        ))}
                 </div>
             </section>
             <section className="flex basis-1/3">
