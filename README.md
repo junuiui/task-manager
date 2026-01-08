@@ -59,6 +59,7 @@ npm i -D vite@7.2.4 @vitejs/plugin-react
 npm i -D typescript@5.9.3
 npm i -D @types/react @types/react-dom @types/node
 npm i --force zod@3.24.2
+npm i @tanstack/react-query @tanstack/react-query-devtools
 ```
 
 Main dependencies include:
