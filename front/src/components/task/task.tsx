@@ -16,7 +16,7 @@ import { Switch } from "@/components/ui/switch";
 import type { ITask } from "@/types/task.interface";
 
 export const Task: FC<ITask> = (props: ITask): ReactElement => {
-    const { title, description, dueDate, status, priority } = props;
+    const { title, description, dueDate, status, priority, _id } = props;
 
     // Use toLocaleDateString with options for day, month, and year
     let formattedDate = dueDate.toLocaleDateString("en-GB", {

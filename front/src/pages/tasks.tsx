@@ -18,9 +18,30 @@ export const Tasks: FC = (): ReactElement => {
                         Tasks as on: Saturday, 1 Mar 2025
                     </h1>
                     <div className="flex justify-around mb-12">
-                        <TasksCounter status="todo" count={3} />
-                        <TasksCounter status="inProgress" count={3} />
-                        <TasksCounter status="completed" count={3} />
+                        <TasksCounter
+                            status="todo"
+                            count={data && data.meta &&
+                                "todoTasks" in data.meta
+                                ? data.meta.todoTasks as number
+                                : 0
+                            }
+                        />
+                        <TasksCounter
+                            status="inProgress"
+                            count={data && data.meta &&
+                                "inProgressTasks" in data.meta
+                                ? data.meta.inProgressTasks as number
+                                : 0
+                            }
+                        />
+                        <TasksCounter
+                            status="completed"
+                            count={data && data.meta &&
+                                "completedTasks" in data.meta
+                                ? data.meta.completedTasks as number
+                                : 0
+                            }
+                        />
                     </div>
 
                     {
