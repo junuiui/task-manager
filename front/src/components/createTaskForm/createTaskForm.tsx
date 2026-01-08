@@ -28,31 +28,44 @@ import { CreateTaskSchema } from "@/schemas/createTask.schema";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
+
 /* Datepicker imports */
 import { format } from "date-fns";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import z from "zod"
+import { useCreateTask } from "@/hooks/createTask.hook";
 
 export function CreateTaskForm() {
     const [date, setDate] = useState();
 
     // 1. Define your form.
-    const form = useForm({
+    const form = useForm<z.infer<typeof CreateTaskSchema>>({
         resolver: zodResolver(CreateTaskSchema),
-        /*  To get rid of teh state change error add default values */
         defaultValues: {
-            title: "",
-        },
+            status: "todo",
+            priority: "low",
+        }
     });
 
-    /** Function to handle what will happen when the form is submitted */
-    function onSubmit(values: { dueDate: any; }) {
-        console.log(values);
+    const { mutate, isSuccess, isError, isPending } = useCreateTask();
 
-        let dueDate = JSON.stringify(values.dueDate);
-        console.log(dueDate);
+    /** Function to handle what will happen when the form is submitted */
+    function onSubmit(values: z.infer<typeof CreateTaskSchema>) {
+        let dueDate = values.dueDate;
+        mutate({ ...values, dueDate })
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast("New Task Created");
+        }
+        form.reset();
+    }, [isSuccess])
+
     return (
         <div>
             <h2 className="text-xl mb-4">Create a new task</h2>
@@ -188,7 +201,11 @@ export function CreateTaskForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Textarea placeholder="Task Description" {...field} />
+                                        <Textarea
+                                            placeholder="Task Description"
+                                            {...field}
+                                            value={field.value ?? ""}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -201,6 +218,7 @@ export function CreateTaskForm() {
                     </div>
                 </form>
             </Form>
+            <Toaster />
         </div>
     );
 }
